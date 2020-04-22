@@ -94,6 +94,9 @@ Windows | putty
 6. reset后,等待新uboot启动,并自动烧写`kernel`和`rootfs`
 7. 此时需要拔下sd卡，以免再进入系统再次烧写
 
+### uboot被破坏的解决办法
+使用`hitool`烧写uboot，详细使用手册见海思官方文档
+
 ## 配网
 - 设置ssid和passwd
 ```
