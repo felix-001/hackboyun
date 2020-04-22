@@ -27,7 +27,7 @@
 ## 刷入新固件  
 1，将准备好的存储卡通过读卡器连接到电脑，请确保存储卡中没有重要文件，**接下来的操作将清空存储卡中已有文件**。在Windows资源管理器中右击对应盘符，选择格式化，设置文件系统为FAT32格式，勾选快速格式化，其他保持默认。点击开始，等待其格式化完成。  
 *注：如果Windows系统的格式化功能没有FAT32选项，可使用Windows系统自带的Diskpart工具清空存储卡，并创建FAT32分区。按Win+R键打开运行对话框，输入`diskpart`回车，在打开的Diskpart工具窗口中输入`list disk`列出所有磁盘，找到存储卡对应的磁盘编号，输入`select disk 存储卡编号`回车选定要操作的磁盘为存储卡，输入`clean`命令清空存储卡，输入`create partition primary`创建主分区，输入`format fs=fat32 quick`快速格式化刚才创建的主分区为FAT32格式。*  
-2，下载最新版本的固件，目前为[firmware-20200420.tar.gz](https://github.com/felix-001/hackboyun/tree/master/firmware)。将压缩包内的文件解压到存储卡中。安全弹出存储卡，将其插入摄像头板的存储卡插槽。  
+2，下载最新版本的固件，目前为[firmware-20200420.tar.gz](/firmware)。将压缩包内的文件解压到存储卡中。安全弹出存储卡，将其插入摄像头板的存储卡插槽。  
 3，打开串口终端软件，选择串口协议（Serial），端口处选择或填入刚才记下的串口号，设置波特率为115200、数据位8、停止位1、无奇偶校验、无流控。确认设置正确并再次检查接线无误后打开串口，注意关闭中文输入法。  
 *笔者使用[PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html),下载合适版本安装并打开。在Session页面中的Connection type下选择Serial。在Category中点击进入Serial选项卡，在Select a serial line中输入上文记下的端口号，下面的Speed（baud）中填入115200，Data bits填8，Stop bits填1，Parity和Flow control皆选择None。点击Category中的Session回到Session页面，在Saved Sessions下输入一个好记的名字，点击Save保存以备下次串口意外中断后再次使用。最后检查设置无误后双击你设置的那个好记的名字打开串口，注意关闭中文输入法。*  
 4，将摄像头板插电源线上电，随后开始不停按回车键。以中断uboot，不自动启动系统。直到出现类似以下内容停止按回车：  
