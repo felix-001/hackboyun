@@ -141,7 +141,7 @@ cd osdrv/opensource/toolchain/arm-hisiv300-linux
 
 - 设置环境变量
 ```
-echo "export PATH=$PATH:/opt/hisi-linux/x86-arm/arm-hisiv300-linux/" >> ~/.bashrc
+echo "export PATH=$PATH:/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
 
