@@ -124,5 +124,9 @@ curl http://your-pc-ip:/your-exe > your-exe
 python -m SimpleHTTPServer 
 ```
 
+## 文档  
+- [ov9732](./doc/sensor)
+- [cc2530](./doc/zigbee)
+
 ## 控制灯
 /sys/devices/dev:gpio7/gpio/gpio62
