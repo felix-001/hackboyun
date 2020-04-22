@@ -119,6 +119,37 @@ wifi
 浏览器访问`http://your-camera-ip:8080/video.mp4`
 
 # 开发
+
+## 开发环境搭建
+- 下载海思sdk：`Hi3518E V200R001C01SPC040.rar`,并解压
+```
+unrar x Hi3518E V200R001C01SPC040.rar
+cd 01.software/board
+tar zxvf Hi3518E_SDK_V1.0.4.0.tgz
+cd Hi3518E_SDK_V1.0.4.0
+./sdk.unpack
+```
+- 安装交叉编译工具链
+```
+cd osdrv/opensource/toolchain/arm-hisiv300-linux
+./cross.install.v30
+```
+执行这个脚本会把工具链安装在`/opt/hisi-linux/x86-arm/arm-hisiv300-linux/`
+
+- 设置环境变量
+```
+echo "export PATH=$PATH:/opt/hisi-linux/x86-arm/arm-hisiv300-linux/" > ~/.bashrc
+source ~/.bashrc
+```
+
+## 编译
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
 目前kernel没有使能NFS，但是fs带了`curl`， 目前比较快的调试办法是PC搭一个http server，程序编译好后，使用curl去下载可执行文件
 - curl下载
 ```
