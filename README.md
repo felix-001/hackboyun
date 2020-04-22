@@ -48,5 +48,68 @@ LED_R | F2 | GPIO7_4
 | pin7 | e14 | UART1_TXD | CC2530 | P0_2
 | pin8 | f1 | GPIO7_5 | CC2530_RST | | 
  
+## UART焊接
+![uart](./images/boyun-uart.png)
 
 # 软件
+## PC串口工具
+
+平台 | 工具
+---|---
+linux | minicom
+Mac | screen/minicom
+Windows | putty
+
+## 串口设置
+- **波特率**： 115200
+- **bits**： 8
+- **奇偶校验**： none
+- **停止位**： 1
+- **流控**： none
+
+
+
+## 刷固件
+1. 下载固件包`firmware-20200420.tar.gz`
+2. sd卡格式化为`fat32`
+3. 解压，拷贝到sd卡根目录
+  ```
+  tar zxvf firmware-20200420.tar.gz
+  ```
+4. sd卡插到摄像头
+5. 烧写uboot
+  ```
+  sf probe 0
+  sf lock 0
+  fatload mmc 0 0x82000000 u-boot.20200419.bin
+  sf erase 0x0 0x80000
+  sf write 0x82000000 0x0 $(filesize)
+  reset
+  ```
+6. reset后,等待新uboot启动,并自动烧写`kernel`和`rootfs`
+7. 此时需要拔下sd卡，以免再进入系统再次烧写
+
+## 配网
+- 设置ssid和passwd
+```
+vi /etc/config/wireless
+```
+将`OpenWrt`和`1234567890`替换成自己的
+- 联网
+```
+wifi
+```
+
+## 访问openwrt页面
+浏览器访问`http://your-camera-ip`
+
+## 查看摄像头实时流
+- 通过mjpeg的方式
+浏览器访问`http://your-camera-ip:8080/mjpeg`
+- 通过rtsp的方式
+  - 电脑或手机安装vlc
+  - 启动vlc，选择open network...
+  - 输入如下地址：`rtsp://your-camera-ip:554/test.h264`
+- 通过mp4的方式
+浏览器访问`http://your-camera-ip:8080/video.mp4`
+  
