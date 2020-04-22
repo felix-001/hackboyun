@@ -139,3 +139,5 @@ python -m SimpleHTTPServer
 ## ADC
 adc相关操作写成了shell脚本:`scripts/adc.sh`
 
+## GPIO
+gpio相关操作:`scripts/gpio.sh`
