@@ -70,7 +70,7 @@ Windows | putty
 
 
 ## 刷固件
-1. 下载固件包`firmware-20200420.tar.gz`
+1. 下载固件包[firmware-20200420.tar.gz](./firmware/firmware-20200420.tar.gz)
 2. sd卡格式化为`fat32`
 3. 解压，拷贝到sd卡根目录
   ```
