@@ -112,4 +112,17 @@ wifi
   - 输入如下地址：`rtsp://your-camera-ip:554/test.h264`
 - 通过mp4的方式  
 浏览器访问`http://your-camera-ip:8080/video.mp4`
-  
+
+# 开发
+目前kernel没有使能NFS，但是fs带了`curl`， 目前比较快的调试办法是PC搭一个http server，程序编译好后，使用curl去下载可执行文件
+- curl下载
+```
+curl http://your-pc-ip:/your-exe > your-exe
+```
+- 快速搭建http server
+```
+python -m SimpleHTTPServer 
+```
+
+## 控制灯
+/sys/devices/dev:gpio7/gpio/gpio62
