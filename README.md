@@ -47,7 +47,12 @@ LED_R | F2 | GPIO7_4
 | pin6 | nc | | CC2530 | P2_1
 | pin7 | e14 | UART1_TXD | CC2530 | P0_2
 | pin8 | f1 | GPIO7_5 | CC2530_RST | | 
- 
+
+- 按键
+
+| KEY|N3 | GPIO0_2 |
+--- | --- | ----
+
 ## UART焊接
 ![uart](./images/boyun-uart.png)
 
@@ -130,3 +135,9 @@ python -m SimpleHTTPServer
 
 ## 控制灯
 /sys/devices/dev:gpio7/gpio/gpio62
+
+## ADC
+adc相关操作写成了shell脚本:`scripts/adc.sh`
+
+## GPIO
+gpio相关操作:`scripts/gpio.sh`
