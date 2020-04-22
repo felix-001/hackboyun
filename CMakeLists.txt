@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 set( APPNAME app )
 
-set(CROSS_COMPILE arm-hisiv300-linux-uclibcgnueabi)
+set(CROSS_COMPILE arm-hisiv300-linux)
 set(CMAKE_C_COMPILER ${CROSS_COMPILE}-gcc)
 set(CMAKE_CXX_COMPILER ${CROSS_COMPILE}-g++)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -12,12 +12,14 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 project( ${APPNAME} )
 
-add_definitions(-DCHIP_ID=0x3518E200)
-add_definitions(-Dhi3518ev200)
+add_definitions(-DDISP_V2)
+add_definitions(-Dhi3518e -DHI_RELEASE -DHI_XXXX)
+add_definitions(-DCHIP_ID=CHIP_HI3518E_V200 -DHICHIP=0x3518E200)
+add_definitions(-Dhi3518ev200 -DHI_ACODEC_TYPE_INNER)
 add_definitions(-DSENSOR_TYPE=OMNIVISION_OV9732_DC_720P_30FPS)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp/common)
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/sensor ${CMAKE_CURRENT_SOURCE_DIR}/libs/mpi ${CMAKE_CURRENT_SOURCE_DIR}/libs/audio)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp DIR_SRCS)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp/common DIR_SRCS)
