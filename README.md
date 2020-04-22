@@ -141,3 +141,7 @@ adc相关操作写成了shell脚本:`scripts/adc.sh`
 
 ## GPIO
 gpio相关操作:`scripts/gpio.sh`
+
+## PWM
+pwm相关操作: `scripts/pwm.sh`
+
