@@ -1,3 +1,14 @@
+# 相关资源
+### 蓝奏云
+链接：https://jasonxy.lanzous.com/b015dy82j
+密码:53r2
+### 百度云：
+链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA 
+提取码：37s2 
+### 腾讯微云
+链接：https://share.weiyun.com/5A5d1Tv
+密码：7h47ib
+
 # 硬件
 ## chips
 - **CPU:** hi3518EV200
@@ -94,6 +105,8 @@ Windows | putty
 6. reset后,等待新uboot启动,并自动烧写`kernel`和`rootfs`
 7. 此时需要拔下sd卡，以免再进入系统再次烧写
 
+- [Lexsion的罗嗦版刷固件教程](./doc/Boyun_FlashFirmware.md)
+
 ### uboot被破坏的解决办法
 - 使用`hitool`烧写uboot，详细使用手册见[hitool使用手册](./doc/tools)
 - 参考[博云救砖教程](./doc/tools/博云救砖教程.docx)
@@ -181,3 +194,5 @@ gpio相关操作:`scripts/gpio.sh`
 ## PWM
 pwm相关操作: `scripts/pwm.sh`
 
+## WATCHDOG
+关闭看门狗： `scripts/close_watchdog.sh`
