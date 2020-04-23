@@ -94,6 +94,8 @@ Windows | putty
 6. reset后,等待新uboot启动,并自动烧写`kernel`和`rootfs`
 7. 此时需要拔下sd卡，以免再进入系统再次烧写
 
+- [Lexsion的罗嗦版刷固件教程](./doc/Boyun_FlashFirmware.md)
+
 ### uboot被破坏的解决办法
 - 使用`hitool`烧写uboot，详细使用手册见[hitool使用手册](./doc/tools)
 - 参考[博云救砖教程](./doc/tools/博云救砖教程.docx)
