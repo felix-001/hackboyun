@@ -140,6 +140,7 @@ wifi
 vi /etc/minihttp.ini
 ```
 将`isp_thread_stack_size`,`venc_stream_thread_stack_size`, `web_server_thread_stack_size`改为:**163840**
+
 **注意:不改配置文件,可能播放流一段时间会卡死**
 
 
