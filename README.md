@@ -1,11 +1,13 @@
 # 相关资源
-### 百度云：
-链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA 
-提取码：37s2 
 ### 蓝奏云
 链接：https://jasonxy.lanzous.com/b015dy82j
 密码:53r2
-
+### 百度云：
+链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA 
+提取码：37s2 
+### 腾讯微云
+链接：https://share.weiyun.com/5A5d1Tv
+密码：7h47ib
 
 # 硬件
 ## chips
