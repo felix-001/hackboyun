@@ -1,3 +1,12 @@
+# 相关资源
+### 百度云：
+链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA 
+提取码：37s2 
+### 蓝奏云
+链接：https://jasonxy.lanzous.com/b015dy82j
+密码:53r2
+
+
 # 硬件
 ## chips
 - **CPU:** hi3518EV200
