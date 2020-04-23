@@ -167,6 +167,7 @@ python -m SimpleHTTPServer
 ## 文档  
 - [ov9732](./doc/sensor)
 - [cc2530](./doc/zigbee)
+- [救砖教程](./doc/tools/博云救砖教程.docx)
 
 ## 控制灯
 /sys/devices/dev:gpio7/gpio/gpio62
