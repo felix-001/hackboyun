@@ -134,7 +134,7 @@ wifi
   - 输入如下地址：`rtsp://your-camera-ip:554/test.h264`
 - 通过mp4的方式  
 浏览器访问`http://your-camera-ip:8080/video.mp4`
-- 配置文件设置
+- 配置文件设置  
 调整线程栈大小,将栈的大小从`16348`设置为`163840`
 ```
 vi /etc/minihttp.ini
