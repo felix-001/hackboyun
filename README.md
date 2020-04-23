@@ -181,3 +181,5 @@ gpio相关操作:`scripts/gpio.sh`
 ## PWM
 pwm相关操作: `scripts/pwm.sh`
 
+## WATCHDOG
+关闭看门狗： `scripts/close_watchdog.sh`
