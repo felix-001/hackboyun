@@ -8,18 +8,22 @@
 ### 腾讯微云
 链接：https://share.weiyun.com/5A5d1Tv
 密码：7h47ib
-
+### minihttp源码地址
+[minihttp](https://github.com/chertov/hi_minihttp.git)
+### 针对ipc场景的各个soc的sdk下载地址
+[soc-sdks](https://dl.openipc.org/SDK/)
+ 
 # 硬件
 ## chips
-- **CPU:** hi3518EV200
-- **WIFI:** 8188
-- **ZIGBEE:** cc2530
-- **SENSOR:** ov9732
+- **CPU:** Hi3518EV200
+- **WIFI:** RTL8188ETV
+- **ZIGBEE:** CC2530 + 2401C射频前端
+- **SENSOR:** OV9732
 
 ## pins
 - 摄像头正面红绿双色指示灯  
 
-| LED_G|L1 | GPIO8_0 |
+LED_G|L1 | GPIO8_0 |
 --- | --- | ----
 LED_R | F2 | GPIO7_4
 
@@ -45,8 +49,8 @@ LED_R | F2 | GPIO7_4
 --- | ---| ---
 黑线 | AE1511 | 4脚 |
  | AE1511 | 3脚 | J1 | GPIO0_1
- 
- 
+
+
 - ZIGBEE排针
 
 | pin1 | | VCC | | |
@@ -64,7 +68,7 @@ LED_R | F2 | GPIO7_4
 | KEY|N3 | GPIO0_2 |
 --- | --- | ----
 
-## UART焊接
+## UART接口定义
 ![uart](./images/boyun-uart.png)
 
 # 软件
@@ -74,7 +78,7 @@ LED_R | F2 | GPIO7_4
 ---|---
 linux | minicom
 Mac | screen/minicom
-Windows | putty
+Windows | [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) 
 
 ## 串口设置
 - **波特率**： 115200
@@ -92,7 +96,7 @@ Windows | putty
   ```
   tar zxvf firmware-20200420.tar.gz
   ```
-4. sd卡插到摄像头
+4. sd卡插到摄像头,上电时按回车键中断进入uboot
 5. 烧写uboot
   ```
   sf probe 0
@@ -103,7 +107,7 @@ Windows | putty
   reset
   ```
 6. reset后,等待新uboot启动,并自动烧写`kernel`和`rootfs`
-7. 此时需要拔下sd卡，以免再进入系统再次烧写
+7. 烧写完毕后需要拔下sd卡，以免下次上电再次烧写
 
 - [Lexsion的罗嗦版刷固件教程](./doc/Boyun_FlashFirmware.md)
 
@@ -187,8 +191,8 @@ python -m SimpleHTTPServer
 ```
 
 ## 文档  
-- [ov9732](./doc/sensor)
-- [cc2530](./doc/zigbee)
+- [OV9732](./doc/sensor)
+- [CC2530](./doc/zigbee)
 - [救砖教程](./doc/tools/博云救砖教程.docx)
 
 ## 控制灯
