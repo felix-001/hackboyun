@@ -8,10 +8,11 @@
 ### 腾讯微云
 链接：https://share.weiyun.com/5A5d1Tv
 密码：7h47ib
-
 ### minihttp源码地址
 [minihttp](https://github.com/chertov/hi_minihttp.git)
-
+### 针对ipc场景的各个soc的sdk下载地址
+[soc-sdks](https://dl.openipc.org/SDK/)
+ 
 # 硬件
 ## chips
 - **CPU:** Hi3518EV200
