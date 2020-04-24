@@ -9,6 +9,9 @@
 链接：https://share.weiyun.com/5A5d1Tv
 密码：7h47ib
 
+### minihttp源码地址
+[minihttp]（https://github.com/chertov/hi_minihttp.git）
+
 # 硬件
 ## chips
 - **CPU:** hi3518EV200
