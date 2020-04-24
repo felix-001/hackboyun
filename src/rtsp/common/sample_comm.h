@@ -55,6 +55,7 @@ extern "C"{
 /*******************************************************
     macro define 
 *******************************************************/
+#define log(fmt, args...) printf("%s:%d(%s) $ "fmt"\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #define FILE_NAME_LEN               128
 #define ALIGN_UP(x, a)              ((x+a-1)&(~(a-1)))
 #define ALIGN_BACK(x, a)              ((a) * (((x) / (a))))
@@ -65,7 +66,7 @@ extern "C"{
 		Ret = express;\
 		if (HI_SUCCESS != Ret)\
 		{\
-			printf("\033[0;31m%s chn %d failed at %s: LINE: %d with %#x!\033[0;39m\n", name, Chn, __FUNCTION__, __LINE__, Ret);\
+			log("\033[0;31m%s chn %d failed at %s: LINE: %d with %#x!\033[0;39m\n", name, Chn, __FUNCTION__, __LINE__, Ret);\
 			fflush(stdout);\
 			return Ret;\
 		}\
@@ -77,7 +78,7 @@ extern "C"{
         Ret = express;\
         if (HI_SUCCESS != Ret)\
         {\
-            printf("\033[0;31m%s failed at %s: LINE: %d with %#x!\033[0;39m\n", name, __FUNCTION__, __LINE__, Ret);\
+            log("\033[0;31m%s failed at %s: LINE: %d with %#x!\033[0;39m\n", name, __FUNCTION__, __LINE__, Ret);\
             return Ret;\
         }\
     }while(0)
@@ -115,15 +116,14 @@ do{\
 }while(0)
 
 #define VI_PAUSE()  do {\
-                         printf("---------------press the Enter key to exit!---------------\n");\
+                         log("---------------press the Enter key to exit!---------------\n");\
                          getchar();\
                      } while (0)
                      
 
 #define SAMPLE_PRT(fmt...)   \
     do {\
-        printf("[%s]-%d: ", __FUNCTION__, __LINE__);\
-        printf(fmt);\
+        log(fmt);\
        }while(0)
 
 #define CHECK_NULL_PTR(ptr)\

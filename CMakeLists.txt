@@ -32,7 +32,8 @@ set (HISI_SENSOR_LIBS
     _iniparser  
     isp  
     _hidefog  
-    sns_sc2135  
+    #    sns_sc2135  
+    sns_ov9732
     )
 
 set (HISI_MPI_LIBS ive md mpi)

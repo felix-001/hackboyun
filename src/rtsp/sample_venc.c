@@ -44,15 +44,15 @@ HI_U32 g_u32BlkCnt = 10;
 ******************************************************************************/
 void SAMPLE_VENC_Usage(char *sPrgNm)
 {
-    printf("Usage : %s <index>\n", sPrgNm);
-    printf("index:\n");
-    printf("\t 0) 1*1080p H264 + 1*VGA H264.\n");
-    printf("\t 1) 1*1080p MJPEG encode + 1*1080p jpeg.\n");
-    printf("\t 2) low delay encode(only vi-vpss online).\n");
-    printf("\t 3) roi background framerate.\n");
-    printf("\t 4) Thumbnail of 1*1080p jpeg.\n");
+    log("Usage : %s <index>\n", sPrgNm);
+    log("index:\n");
+    log("\t 0) 1*1080p H264 + 1*VGA H264.\n");
+    log("\t 1) 1*1080p MJPEG encode + 1*1080p jpeg.\n");
+    log("\t 2) low delay encode(only vi-vpss online).\n");
+    log("\t 3) roi background framerate.\n");
+    log("\t 4) Thumbnail of 1*1080p jpeg.\n");
 #ifndef hi3518ev201
-	printf("\t 5) svc-t H264\n");
+	log("\t 5) svc-t H264\n");
 #endif
     return;
 }
@@ -66,7 +66,7 @@ void SAMPLE_VENC_HandleSig(HI_S32 signo)
     {
         SAMPLE_COMM_ISP_Stop();
         SAMPLE_COMM_SYS_Exit();
-        printf("\033[0;31mprogram termination abnormally!\033[0;39m\n");
+        log("\033[0;31mprogram termination abnormally!\033[0;39m\n");
     }
     exit(-1);
 }
@@ -81,7 +81,7 @@ void SAMPLE_VENC_StreamHandleSig(HI_S32 signo)
     {
         SAMPLE_COMM_ISP_Stop();
         SAMPLE_COMM_SYS_Exit();
-        printf("\033[0;31mprogram exit abnormally!\033[0;39m\n");
+        log("\033[0;31mprogram exit abnormally!\033[0;39m\n");
     }
 
     exit(0);
@@ -138,13 +138,13 @@ HI_S32 SAMPLE_VENC_1080P_CLASSIC(HI_VOID)
     }
     else
     {
-        printf("not support this sensor\n");
+        log("not support this sensor\n");
         return HI_FAILURE;
     }
 #ifdef hi3518ev201
 	s32ChnNum = 1;
 #endif
-	printf("s32ChnNum = %d\n",s32ChnNum);
+	log("s32ChnNum = %d\n",s32ChnNum);
 
     stVbConf.u32MaxPoolCnt = 128;
 
@@ -305,11 +305,11 @@ HI_S32 SAMPLE_VENC_1080P_CLASSIC(HI_VOID)
      step 5: start stream venc
     ******************************************/
     /*** HD1080P **/
-    printf("\t c) cbr.\n");
-    printf("\t v) vbr.\n");
-	printf("\t a) Avbr.\n");
-    printf("\t f) fixQp\n");
-    printf("please input choose rc mode!\n");
+    log("\t c) cbr.\n");
+    log("\t v) vbr.\n");
+	log("\t a) Avbr.\n");
+    log("\t f) fixQp\n");
+    log("please input choose rc mode!\n");
     c = (char)getchar();
     switch(c)
     {
@@ -327,7 +327,7 @@ HI_S32 SAMPLE_VENC_1080P_CLASSIC(HI_VOID)
             enRcMode = SAMPLE_RC_FIXQP;
             break;
         default:
-            printf("rc mode! is invaild!\n");
+            log("rc mode! is invaild!\n");
             goto END_VENC_1080P_CLASSIC_4;
     }
 
@@ -403,7 +403,7 @@ HI_S32 SAMPLE_VENC_1080P_CLASSIC(HI_VOID)
         goto END_VENC_1080P_CLASSIC_5;
     }
 
-    printf("please press twice ENTER to exit this sample\n");
+    log("please press twice ENTER to exit this sample\n");
     getchar();
     getchar();
 
@@ -657,21 +657,21 @@ HI_S32 SAMPLE_VENC_1080P_MJPEG_JPEG(HI_VOID)
         goto END_VENC_MJPEG_JPEG_5;
     }
 
-    printf("press 'q' to exit sample!\nperess ENTER to capture one picture to file\n");
+    log("press 'q' to exit sample!\nperess ENTER to capture one picture to file\n");
     i = 0;
     while ((ch = (char)getchar()) != 'q')
     {
         s32Ret = SAMPLE_COMM_VENC_SnapProcess(VencChn, HI_TRUE, HI_FALSE);
         if (HI_SUCCESS != s32Ret)
         {
-            printf("%s: sanp process failed!\n", __FUNCTION__);
+            log("%s: sanp process failed!\n", __FUNCTION__);
             break;
         }
-        printf("snap %d success!\n", i);
+        log("snap %d success!\n", i);
         i++;
     }
  
-    printf("please press ENTER to exit this sample\n");
+    log("please press ENTER to exit this sample\n");
     getchar();
     getchar();
 
@@ -756,7 +756,7 @@ HI_S32 SAMPLE_VENC_LOW_DELAY(HI_VOID)
     }
     else
     {
-        printf("not support this sensor\n");
+        log("not support this sensor\n");
         return HI_FAILURE;
     }
     #ifdef hi3518ev201
@@ -772,7 +772,7 @@ HI_S32 SAMPLE_VENC_LOW_DELAY(HI_VOID)
 
 	if(s32ChnNum >= 1)
     {
-	    printf("u32BlkSize: %d\n", u32BlkSize);
+	    log("u32BlkSize: %d\n", u32BlkSize);
 	    stVbConf.astCommPool[0].u32BlkSize = u32BlkSize;
 	    stVbConf.astCommPool[0].u32BlkCnt = g_u32BlkCnt;
 	}
@@ -883,11 +883,11 @@ HI_S32 SAMPLE_VENC_LOW_DELAY(HI_VOID)
      step 5: start stream venc
     ******************************************/
     /*** HD1080P **/
-    printf("\t c) cbr.\n");
-    printf("\t v) vbr.\n");
-	printf("\t a) Avbr.\n");
-    printf("\t f) fixQp\n");
-    printf("please input choose rc mode!\n");
+    log("\t c) cbr.\n");
+    log("\t v) vbr.\n");
+	log("\t a) Avbr.\n");
+    log("\t f) fixQp\n");
+    log("please input choose rc mode!\n");
     c = (char)getchar();
     switch(c)
     {
@@ -905,7 +905,7 @@ HI_S32 SAMPLE_VENC_LOW_DELAY(HI_VOID)
             enRcMode = SAMPLE_RC_FIXQP;
             break;
         default:
-            printf("rc mode! is invaild!\n");
+            log("rc mode! is invaild!\n");
             goto END_VENC_LOW_DELAY_4;
     }
 	if(s32ChnNum >= 1)
@@ -995,7 +995,7 @@ HI_S32 SAMPLE_VENC_LOW_DELAY(HI_VOID)
         goto END_VENC_LOW_DELAY_5;
     }
 
-    printf("please press twice ENTER to exit this sample\n");
+    log("please press twice ENTER to exit this sample\n");
     getchar();
     getchar();
 
@@ -1083,7 +1083,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
     }
     else
     {
-        printf("not support this sensor\n");
+        log("not support this sensor\n");
         return HI_FAILURE;
     }
     
@@ -1190,11 +1190,11 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
      step 5: start stream venc
     ******************************************/
     /*** HD1080P **/
-    printf("\t c) cbr.\n");
-    printf("\t v) vbr.\n");
-	printf("\t a) Avbr.\n");
-    printf("\t f) fixQp\n");
-    printf("please input choose rc mode!\n");
+    log("\t c) cbr.\n");
+    log("\t v) vbr.\n");
+	log("\t a) Avbr.\n");
+    log("\t f) fixQp\n");
+    log("please input choose rc mode!\n");
     c = (char)getchar();
     switch(c)
     {
@@ -1212,7 +1212,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
             enRcMode = SAMPLE_RC_FIXQP;
             break;
         default:
-            printf("rc mode! is invaild!\n");
+            log("rc mode! is invaild!\n");
             goto END_VENC_1080P_CLASSIC_4;
     }
     VpssGrp = 0;
@@ -1272,7 +1272,7 @@ HI_S32 SAMPLE_VENC_ROIBG_CLASSIC(HI_VOID)
         goto END_VENC_1080P_CLASSIC_5;
     }
 
-    printf("please press ENTER to exit this sample\n");
+    log("please press ENTER to exit this sample\n");
     getchar();
     getchar();
 
@@ -1349,7 +1349,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     }
     else
     {
-        printf("not support this sensor\n");
+        log("not support this sensor\n");
         return HI_FAILURE;
     }
     
@@ -1457,11 +1457,11 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
 	 step 5: start stream venc
 	******************************************/
 	/*** HD1080P **/
-	printf("\t c) cbr.\n");
-	printf("\t v) vbr.\n");
-	printf("\t a) Avbr.\n");
-	printf("\t f) fixQp\n");
-	printf("please input choose rc mode!\n");
+	log("\t c) cbr.\n");
+	log("\t v) vbr.\n");
+	log("\t a) Avbr.\n");
+	log("\t f) fixQp\n");
+	log("please input choose rc mode!\n");
 	c = (char)getchar();
 	switch(c)
 	{
@@ -1479,7 +1479,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
             enRcMode = SAMPLE_RC_FIXQP;
             break;
         default:
-            printf("rc mode! is invaild!\n");
+            log("rc mode! is invaild!\n");
             goto END_VENC_1080P_CLASSIC_4;
     }
     VpssGrp = 0;
@@ -1488,7 +1488,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
     s32Ret = SAMPLE_COMM_VENC_Start(VencChn, enPayLoad, \
                                     gs_enNorm, enSize[0], enRcMode, u32Profile);
 
-    printf("SAMPLE_COMM_VENC_Start is ok\n");
+    log("SAMPLE_COMM_VENC_Start is ok\n");
 
     if (HI_SUCCESS != s32Ret)
     {
@@ -1498,7 +1498,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
 
 	s32Ret = SAMPLE_COMM_VENC_BindVpss(VencChn, VpssGrp, VpssChn);
 
-	printf("SAMPLE_COMM_VENC_BindVpss is ok\n");
+	log("SAMPLE_COMM_VENC_BindVpss is ok\n");
 
 	
 	if (HI_SUCCESS != s32Ret)
@@ -1518,7 +1518,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
 		goto END_VENC_1080P_CLASSIC_5;
 	}
 
-	printf("please press ENTER to exit this sample\n");
+	log("please press ENTER to exit this sample\n");
 	getchar();
 	getchar();
 
@@ -1527,7 +1527,7 @@ HI_S32 SAMPLE_VENC_SVC_H264(HI_VOID)
 	******************************************/
 	SAMPLE_COMM_VENC_StopGetStream();
 	
-	printf("SAMPLE_COMM_VENC_StopGetStream is ok\n");
+	log("SAMPLE_COMM_VENC_StopGetStream is ok\n");
 END_VENC_1080P_CLASSIC_5:
 	VpssGrp = 0;
 	
@@ -1737,21 +1737,21 @@ HI_S32 SAMPLE_VENC_1080P_JPEG_Thumb(HI_VOID)
     /******************************************
      step 7: stream venc process -- get stream, then save it to file. 
     ******************************************/
-    printf("press 'q' to exit sample!\nperess ENTER to capture one picture to file\n");
+    log("press 'q' to exit sample!\nperess ENTER to capture one picture to file\n");
     i = 0;
     while ((ch = (char)getchar()) != 'q')
     {
         s32Ret = SAMPLE_COMM_VENC_SnapProcess(VencChn, HI_TRUE, HI_TRUE);
         if (HI_SUCCESS != s32Ret)
         {
-            printf("%s: sanp process failed!\n", __FUNCTION__);
+            log("%s: sanp process failed!\n", __FUNCTION__);
             break;
         }
-        printf("snap %d success!\n", i);
+        log("snap %d success!\n", i);
         i++;
     }
  
-    printf("please press ENTER to exit this sample\n");
+    log("please press ENTER to exit this sample\n");
     getchar();
     getchar();
 
@@ -1823,15 +1823,15 @@ int main(int argc, char *argv[])
 			break;
 #endif
         default:
-            printf("the index is invaild!\n");
+            log("the index is invaild!\n");
             SAMPLE_VENC_Usage(argv[0]);
             return HI_FAILURE;
     }
     
     if (HI_SUCCESS == s32Ret)
-        printf("program exit normally!\n");
+        log("program exit normally!\n");
     else
-        printf("program exit abnormally!\n");
+        log("program exit abnormally!\n");
     exit(s32Ret);
 }
 

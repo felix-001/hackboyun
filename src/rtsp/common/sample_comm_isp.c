@@ -47,7 +47,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = sensor_set_inifile_path("configs/");
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: set cmos iniparser file path failed with %#x!\n", \
+        log("%s: set cmos iniparser file path failed with %#x!\n", \
                __FUNCTION__, s32Ret);
         return s32Ret;
     }
@@ -57,7 +57,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = sensor_register_callback();
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: sensor_register_callback failed with %#x!\n", \
+        log("%s: sensor_register_callback failed with %#x!\n", \
                __FUNCTION__, s32Ret);
         return s32Ret;
     }
@@ -68,7 +68,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_AE_Register(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AE_Register failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AE_Register failed!\n", __FUNCTION__);
         return s32Ret;
     }
 
@@ -78,7 +78,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_AWB_Register(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AWB_Register failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AWB_Register failed!\n", __FUNCTION__);
         return s32Ret;
     }
 
@@ -88,7 +88,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_AF_Register(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AF_Register failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AF_Register failed!\n", __FUNCTION__);
         return s32Ret;
     }
 
@@ -96,7 +96,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_ISP_MemInit(IspDev);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_ISP_Init failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_ISP_Init failed!\n", __FUNCTION__);
         return s32Ret;
     }
 
@@ -106,7 +106,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_ISP_SetWDRMode(0, &stWdrMode);    
     if (HI_SUCCESS != s32Ret)
     {
-        printf("start ISP WDR failed!\n");
+        log("start ISP WDR failed!\n");
         return s32Ret;
     }
 
@@ -213,7 +213,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_ISP_SetPubAttr(IspDev, &stPubAttr);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_ISP_SetPubAttr failed with %#x!\n", __FUNCTION__, s32Ret);
+        log("%s: HI_MPI_ISP_SetPubAttr failed with %#x!\n", __FUNCTION__, s32Ret);
         return s32Ret;
     }
 
@@ -221,7 +221,7 @@ HI_S32 SAMPLE_COMM_ISP_Init(WDR_MODE_E  enWDRMode)
     s32Ret = HI_MPI_ISP_Init(IspDev);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_ISP_Init failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_ISP_Init failed!\n", __FUNCTION__);
         return s32Ret;
     }
 
@@ -248,7 +248,7 @@ HI_S32 SAMPLE_COMM_ISP_Run()
 #if (CHIP_ID == CHIP_HI3516C_V200)
     if (0 != pthread_create(&gs_IspPid, 0, (void* (*)(void*))Test_ISP_Run, NULL))
     {
-        printf("%s: create isp running thread failed!\n", __FUNCTION__);
+        log("%s: create isp running thread failed!\n", __FUNCTION__);
         return HI_FAILURE;
     }
     usleep(1000);
@@ -258,7 +258,7 @@ HI_S32 SAMPLE_COMM_ISP_Run()
     pthread_attr_setstacksize(&attr, 4096 * 1024);
     if (0 != pthread_create(&gs_IspPid, &attr, (void* (*)(void*))Test_ISP_Run, NULL))
     {
-        printf("%s: create isp running thread failed!\n", __FUNCTION__);
+        log("%s: create isp running thread failed!\n", __FUNCTION__);
         pthread_attr_destroy(&attr);
         return HI_FAILURE;
     }
@@ -284,46 +284,46 @@ HI_S32 SAMPLE_COMM_ISP_Run()
 			int min, max;
 
 			pthread_attr_getschedpolicy(&attr, &policy);
-			printf("-->default thread use policy is %d --<\n", policy);
+			log("-->default thread use policy is %d --<\n", policy);
 
 			pthread_attr_setschedpolicy(&attr, SCHED_RR);
 			pthread_attr_getschedpolicy(&attr, &policy);
-			printf("-->current thread use policy is %d --<\n", policy);
+			log("-->current thread use policy is %d --<\n", policy);
 
 			switch (policy)
 			{
 				case SCHED_FIFO:
-					printf("-->current thread use policy is SCHED_FIFO --<\n");
+					log("-->current thread use policy is SCHED_FIFO --<\n");
 					break;
 
 				case SCHED_RR:
-					printf("-->current thread use policy is SCHED_RR --<\n");
+					log("-->current thread use policy is SCHED_RR --<\n");
 					break;
 
 				case SCHED_OTHER:
-					printf("-->current thread use policy is SCHED_OTHER --<\n");
+					log("-->current thread use policy is SCHED_OTHER --<\n");
 					break;
 
 				default:
-					printf("-->current thread use policy is UNKNOW --<\n");
+					log("-->current thread use policy is UNKNOW --<\n");
 					break;
 			}
 
 			min = sched_get_priority_min(policy);
 			max = sched_get_priority_max(policy);
 
-			printf("-->current thread policy priority range (%d ~ %d) --<\n", min, max);
+			log("-->current thread policy priority range (%d ~ %d) --<\n", min, max);
 		}
 
 		pthread_attr_getschedparam(&attr, &param);
 
-		printf("-->default isp thread priority is %d , next be %d --<\n", param.sched_priority, newprio);
+		log("-->default isp thread priority is %d , next be %d --<\n", param.sched_priority, newprio);
 		param.sched_priority = newprio;
 		pthread_attr_setschedparam(&attr, &param);
 
 		if (0 != pthread_create(&gs_IspPid, &attr, (void* (*)(void*))HI_MPI_ISP_Run, NULL))
 		{
-			printf("%s: create isp running thread failed!\n", __FUNCTION__);
+			log("%s: create isp running thread failed!\n", __FUNCTION__);
 			return HI_FAILURE;
 		}
 
@@ -347,7 +347,7 @@ HI_S32 SAMPLE_COMM_ISP_ChangeSensorMode(HI_U8 u8Mode)
     s32Ret = HI_MPI_ISP_SetWDRMode(IspDev, &stWDRMode);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_ISP_SetWDRMode failed with %#x!\n", 
+        log("%s: HI_MPI_ISP_SetWDRMode failed with %#x!\n", 
                __FUNCTION__, s32Ret);
         return s32Ret;
     }
@@ -384,7 +384,7 @@ HI_VOID SAMPLE_COMM_ISP_Stop()
     s32Ret = HI_MPI_AF_UnRegister(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AF_UnRegister failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AF_UnRegister failed!\n", __FUNCTION__);
         return;
     }
 
@@ -394,7 +394,7 @@ HI_VOID SAMPLE_COMM_ISP_Stop()
     s32Ret = HI_MPI_AWB_UnRegister(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AWB_UnRegister failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AWB_UnRegister failed!\n", __FUNCTION__);
         return;
     }
 
@@ -404,7 +404,7 @@ HI_VOID SAMPLE_COMM_ISP_Stop()
     s32Ret = HI_MPI_AE_UnRegister(IspDev, &stLib);
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: HI_MPI_AE_UnRegister failed!\n", __FUNCTION__);
+        log("%s: HI_MPI_AE_UnRegister failed!\n", __FUNCTION__);
         return;
     }
 
@@ -412,7 +412,7 @@ HI_VOID SAMPLE_COMM_ISP_Stop()
     s32Ret = sensor_unregister_callback();
     if (s32Ret != HI_SUCCESS)
     {
-        printf("%s: sensor_unregister_callback failed with %#x!\n", \
+        log("%s: sensor_unregister_callback failed with %#x!\n", \
                __FUNCTION__, s32Ret);
         return;
     }
