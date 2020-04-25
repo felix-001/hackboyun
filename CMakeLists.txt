@@ -12,24 +12,26 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 project( ${APPNAME} )
 
-message(${CROSS_COMPILE})
+set(CMAKE_C_FLAGS "-std=gnu99")
 #add_definitions(-DDISP_V2)
+#add_definitions(-fsanitize=address -fno-omit-frame-pointer)
 add_definitions(-Dhi3518e -DHI_RELEASE -DHI_XXXX)
 add_definitions(-DCHIP_ID=CHIP_HI3518E_V200 -DHICHIP=0x3518E200)
 add_definitions(-Dhi3518ev200 -DHI_ACODEC_TYPE_INNER)
 add_definitions(-DSENSOR_TYPE=OMNIVISION_OV9732_DC_720P_30FPS)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp/common)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp DIR_SRCS)
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp/common DIR_SRCS)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/ DIR_SRCS)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/config DIR_SRCS)
 add_executable(${APPNAME} ${DIR_SRCS})
 set (HISI_SENSOR_LIBS 
     isp _hiae _hiawb _hiaf _hidefog
     pthread m dl
     ive md mpi tde upvqe dnvqe VoiceEngine
-    sns_ov9732
+    #    sns_ov9732
     )
 
 set (HISI_MPI_LIBS ive md mpi)
