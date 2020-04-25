@@ -171,7 +171,7 @@ cmake ..
 make
 ```
 
-目前kernel没有使能NFS，但是fs带了`curl`， 目前比较快的调试办法是PC搭一个http server，程序编译好后，使用curl去下载可执行文件
+目前kernel没有使能NFS，但是fs带了`curl`， 目前比较快的调试办法是PC搭一个http server，程序编译好后，使用curl去下载可执行文件.后面有介绍使用`scp`拷贝可执行文件到开发板的教程，要比curl的方式更方便一些。
 - curl下载
 ```
 curl http://your-pc-ip:/your-exe > your-exe
