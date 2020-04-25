@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 set( APPNAME app )
 
-set(CROSS_COMPILE arm-hisiv300-linux)
+set(CROSS_COMPILE arm-openwrt-linux)
 set(CMAKE_C_COMPILER ${CROSS_COMPILE}-gcc)
 set(CMAKE_CXX_COMPILER ${CROSS_COMPILE}-g++)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -12,7 +12,8 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 project( ${APPNAME} )
 
-add_definitions(-DDISP_V2)
+message(${CROSS_COMPILE})
+#add_definitions(-DDISP_V2)
 add_definitions(-Dhi3518e -DHI_RELEASE -DHI_XXXX)
 add_definitions(-DCHIP_ID=CHIP_HI3518E_V200 -DHICHIP=0x3518E200)
 add_definitions(-Dhi3518ev200 -DHI_ACODEC_TYPE_INNER)
@@ -25,18 +26,13 @@ aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp DIR_SRCS)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp/common DIR_SRCS)
 add_executable(${APPNAME} ${DIR_SRCS})
 set (HISI_SENSOR_LIBS 
-    _cmoscfg
-    _hiae
-    _hiaf
-    _hiawb  
-    _iniparser  
-    isp  
-    _hidefog  
-    #    sns_sc2135  
+    isp _hiae _hiawb _hiaf _hidefog
+    pthread m dl
+    ive md mpi tde upvqe dnvqe VoiceEngine
     sns_ov9732
     )
 
 set (HISI_MPI_LIBS ive md mpi)
 set (HISI_AUDIO_LIBS upvqe dnvqe VoiceEngine)
-target_link_libraries(${APPNAME} ${HISI_MPI_LIBS} ${HISI_SENSOR_LIBS}  ${HISI_AUDIO_LIBS} pthread m dl)
+target_link_libraries(${APPNAME} ${HISI_SENSOR_LIBS})
 
