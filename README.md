@@ -140,15 +140,6 @@ wifi
   - 输入如下地址：`rtsp://your-camera-ip:554/test.h264`
 - 通过mp4的方式  
 浏览器访问`http://your-camera-ip:8080/video.mp4`
-- 配置文件设置  
-调整线程栈大小,将栈的大小从`16348`设置为`163840`
-```
-vi /etc/minihttp.ini
-```
-将`isp_thread_stack_size`,`venc_stream_thread_stack_size`, `web_server_thread_stack_size`改为:**163840**
-
-**注意:不改配置文件,可能播放流一段时间会卡死**
-
 
 # 开发
 
@@ -165,6 +156,7 @@ source ~/.bashrc
 
 ## 编译
 ```
+git checkout develop
 mkdir build
 cd build
 cmake ..
@@ -180,6 +172,19 @@ curl http://your-pc-ip:/your-exe > your-exe
 ```
 python -m SimpleHTTPServer 
 ```
+
+## 运行
+- 拷贝`app`到摄像头
+```
+scp app root@192.168.3.52:~
+```
+
+- 运行
+```
+cd ~
+./app &
+```
+
 ## FTP
 摄像头开启ftp:
 ```
