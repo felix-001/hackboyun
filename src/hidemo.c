@@ -25,6 +25,7 @@
 #include "rtsp_server.h"
 #include "hierrors.h"
 #include "config/app_config.h"
+#include "ringfifo.h"
 
 struct SDKState state;
 int keepRunning = 1;
@@ -45,7 +46,8 @@ HI_VOID* Test_ISP_Run(HI_VOID *param)
 
 HI_S32 VENC_SaveH264(int chn_index, VENC_STREAM_S *pstStream) 
 {
-    saveStream(pstStream);
+//    saveStream(pstStream);
+    push_h264(pstStream);
     return HI_SUCCESS;
 }
 
@@ -185,7 +187,7 @@ HI_VOID* VENC_GetVencStreamProc(HI_VOID *p)
                 if (!channel_main_loop(chn_index)) continue;
 
                 if (FD_ISSET(VencFd[chn_index], &read_fds)) {
-                    dbg("fd_was_set! chn: %d\n", chn_index);
+                    //dbg("fd_was_set! chn: %d\n", chn_index);
                     memset(&stStream, 0, sizeof(stStream));
                     s32Ret = HI_MPI_VENC_Query(chn_index, &stStat);
                     if (HI_SUCCESS != s32Ret) { 
@@ -198,7 +200,7 @@ HI_VOID* VENC_GetVencStreamProc(HI_VOID *p)
                         continue; 
                     }
 
-                    dbg("stStat.u32CurPacks:%d\n", stStat.u32CurPacks);
+                    //dbg("stStat.u32CurPacks:%d\n", stStat.u32CurPacks);
                     stStream.pstPack = (VENC_PACK_S*)malloc(sizeof(VENC_PACK_S) * stStat.u32CurPacks);
                     if (NULL == stStream.pstPack) { 
                         dbg("malloc stream chn[%d] pack failed!\n", chn_index); 

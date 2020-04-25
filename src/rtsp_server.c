@@ -11,7 +11,6 @@ extern "C"{
 #include <time.h>
 #include <netdb.h>
 #include <sys/socket.h>
-
 #include <sys/ioctl.h>
 #include <fcntl.h> 
 #include <pthread.h>
@@ -19,14 +18,13 @@ extern "C"{
 #include <sys/msg.h>
 #include <netinet/if_ether.h>
 #include <net/if.h>
-
 #include <linux/if_ether.h>
 #include <linux/sockios.h>
 #include <netinet/in.h> 
 #include <arpa/inet.h> 
-
 #include "rtsp_server.h"
 #include "config/app_config.h"
+#include "ringfifo.h"
 
 //static bool flag = true;
 RTP_FIXED_HEADER        *rtp_hdr;
@@ -74,16 +72,15 @@ static char* GetLocalIP(int sock)
 {
 	struct ifreq ifreq;
 	struct sockaddr_in *sin;
-	char * LocalIP = malloc(20);
-	strcpy(ifreq.ifr_name,"eth0");
-	if (!(ioctl (sock, SIOCGIFADDR,&ifreq)))
-    	{ 
+	char * LocalIP = calloc(20, 1);
+
+	strcpy(ifreq.ifr_name, "wlan0");
+	if (!(ioctl (sock, SIOCGIFADDR,&ifreq))) { 
 		sin = (struct sockaddr_in *)&ifreq.ifr_addr;
 		sin->sin_family = AF_INET;
-       	strcpy(LocalIP,inet_ntoa(sin->sin_addr)); 
-		//inet_ntop(AF_INET, &sin->sin_addr,LocalIP, 16);
-    	} 
-	dbg("--------------------------------------------%s\n",LocalIP);
+       	strcpy(LocalIP, inet_ntoa(sin->sin_addr)); 
+    } 
+	dbg("---------------------------------------%s\n",LocalIP);
 	return LocalIP;
 }
 
@@ -505,14 +502,14 @@ void * RtspClientMsg(void*pParam)
 	int nRes;
 	char pRecvBuf[RTSP_RECV_SIZE];
 	RTSP_CLIENT * pClient = (RTSP_CLIENT*)pParam;
-	memset(pRecvBuf,0,sizeof(pRecvBuf));
-	dbg("RTSP:-----Create Client %s\n",pClient->IP);
+
+	dbg("RTSP:-----Create Client thread %s\n",pClient->IP);
 	while(pClient->status != RTSP_IDLE)
 	{
+        memset(pRecvBuf, 0, sizeof(pRecvBuf));
 		nRes = recv(pClient->socket, pRecvBuf, RTSP_RECV_SIZE,0);
 		//dbg("-------------------%d\n",nRes);
-		if(nRes < 1)
-		{
+		if(nRes < 1) {
 			//usleep(1000);
 			dbg("RTSP:Recv Error--- %d\n",nRes);
 			g_rtspClients[pClient->index].status = RTSP_IDLE;
@@ -527,29 +524,32 @@ void * RtspClientMsg(void*pParam)
 		char urlSuffix[PARAM_STRING_MAX];
 		char cseq[PARAM_STRING_MAX];
 
-		ParseRequestString(pRecvBuf,nRes,cmdName,sizeof(cmdName),urlPreSuffix,sizeof(urlPreSuffix),
-			urlSuffix,sizeof(urlSuffix),cseq,sizeof(cseq));
+		ParseRequestString(
+                pRecvBuf,
+                nRes,
+                cmdName
+                ,sizeof(cmdName),
+                urlPreSuffix,
+                sizeof(urlPreSuffix),
+                urlSuffix,
+                sizeof(urlSuffix),
+                cseq,
+                sizeof(cseq));
 		
 		char *p = pRecvBuf;
 
-		dbg("<<<<<%s\n",p);
+		dbg("<<<<<%s\n", p);
 
 		//dbg("\--------------------------\n");
 		//dbg("%s %s\n",urlPreSuffix,urlSuffix);
 
-		if(strstr(cmdName, "OPTIONS"))
-		{
+		if(strstr(cmdName, "OPTIONS")) {
 			OptionAnswer(cseq,pClient->socket);
-			
-		}
-		else if(strstr(cmdName, "DESCRIBE"))
-		{
+		} else if(strstr(cmdName, "DESCRIBE")) {
 			DescribeAnswer(cseq,pClient->socket,urlSuffix,p);
 			//dbg("-----------------------------DescribeAnswer %s %s\n",
 			//	urlPreSuffix,urlSuffix);
-		}
-		else if(strstr(cmdName, "SETUP"))
-		{
+		} else if(strstr(cmdName, "SETUP")) {
 			int rtpport,rtcpport;
 			int trackID=0;
 			SetupAnswer(cseq,pClient->socket,pClient->sessionid,urlPreSuffix,p,&rtpport,&rtcpport);
@@ -564,21 +564,15 @@ void * RtspClientMsg(void*pParam)
 				strcpy(g_rtspClients[pClient->index].urlPre,urlPreSuffix);
 			//dbg("-----------------------------SetupAnswer %s-%d-%d\n",
 			//	urlPreSuffix,g_rtspClients[pClient->index].reqchn,rtpport);
-		}
-		else if(strstr(cmdName, "PLAY"))
-		{
+		} else if(strstr(cmdName, "PLAY")) {
 			PlayAnswer(cseq,pClient->socket,pClient->sessionid,g_rtspClients[pClient->index].urlPre,p);
 			g_rtspClients[pClient->index].status = RTSP_SENDING;
 			dbg("Start Play\n",pClient->index);
 			//dbg("-----------------------------PlayAnswer %d %d\n",pClient->index);
 			//usleep(100);
-		}
-		else if(strstr(cmdName, "PAUSE"))
-		{
+		} else if(strstr(cmdName, "PAUSE")) {
 			PauseAnswer(cseq,pClient->socket,p);
-		}
-		else if(strstr(cmdName, "TEARDOWN"))
-		{
+		} else if(strstr(cmdName, "TEARDOWN")) {
 			TeardownAnswer(cseq,pClient->socket,pClient->sessionid,p);
 			g_rtspClients[pClient->index].status = RTSP_IDLE;
 			g_rtspClients[pClient->index].seqnum = 0;
@@ -899,7 +893,7 @@ HI_S32 SAMPLE_COMM_VENC_Sentjin(VENC_STREAM_S *pstStream)
 
     return HI_SUCCESS;
 }
-int count=0;
+volatile int count=0;
 HI_S32 saveStream(VENC_STREAM_S *pstStream)
 {
     HI_S32 i,j,lens=0;
@@ -910,17 +904,19 @@ HI_S32 saveStream(VENC_STREAM_S *pstStream)
 		{
 		    for (i = 0; i < pstStream->u32PackCount; i++)
 		    {
-				RTPbuf_s *p = (RTPbuf_s *)malloc(sizeof(RTPbuf_s));
-				INIT_LIST_HEAD(&(p->list));
+                if (count < 1000) {
+                    RTPbuf_s *p = (RTPbuf_s *)malloc(sizeof(RTPbuf_s));
+                    INIT_LIST_HEAD(&(p->list));
 
-				lens = pstStream->pstPack[i].u32Len-pstStream->pstPack[i].u32Offset;
-				p->buf = (char *)malloc(lens);
-				p->len = lens;
-				memcpy(p->buf,pstStream->pstPack[i].pu8Addr+pstStream->pstPack[i].u32Offset,lens);
+                    lens = pstStream->pstPack[i].u32Len-pstStream->pstPack[i].u32Offset;
+                    p->buf = (char *)malloc(lens);
+                    p->len = lens;
+                    memcpy(p->buf,pstStream->pstPack[i].pu8Addr+pstStream->pstPack[i].u32Offset,lens);
 
-				list_add_tail(&(p->list),&RTPbuf_head);
-				//count++;
-				//dbg("count = %d\n",count);
+                    list_add_tail(&(p->list),&RTPbuf_head);
+                    count++;
+                    dbg("count = %d\n",count);
+                }
 		    }
     	}
     }
@@ -964,22 +960,15 @@ void RtspServer_exit(void)
 HI_VOID* vdRTPSendThread(HI_VOID *p)
 {
 	while(1)
-	{
-		if(!list_empty(&RTPbuf_head))
-		{
-			
-			RTPbuf_s *p = get_first_item(&RTPbuf_head,RTPbuf_s,list);
-			VENC_Sent(p->buf,p->len);
-			list_del(&(p->list));
-			free(p->buf);
-			free(p);
-			p = NULL;
-			//count--;
-			//dbg("count = %d\n",count);
-		
-		}
-		usleep(5000);
-	}
+    {
+        struct ringbuf buf;
+
+        if (!ringget(&buf)) {
+            VENC_Sent(buf.buffer, buf.size);
+        }
+
+        usleep(5000);
+    }
 }
 
 int loop()
