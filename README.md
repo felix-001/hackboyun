@@ -206,6 +206,10 @@ cat ~/.ssh/id_rsa.pub
 ```
 ssh root@your-camera-ip
 ```
+- scp拷贝
+```
+scp your-file root@your-camera-ip:~/
+```
 
 ## 文档  
 - [OV9732](./doc/sensor)
