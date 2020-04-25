@@ -176,7 +176,7 @@ python -m SimpleHTTPServer
 ## 运行
 - 拷贝`app`到摄像头
 ```
-scp app root@192.168.3.52:~
+scp app root@your-camera-ip:~
 ```
 
 - 运行
