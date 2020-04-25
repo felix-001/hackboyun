@@ -3,13 +3,15 @@
 链接：https://jasonxy.lanzous.com/b015dy82j
 密码:53r2
 ### 百度云：
-链接： 
+链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA
 提取码：37s2 
 ### 腾讯微云
-链接：
+链接：https://www.lanzous.com/5A5d1Tv
 密码：7h47ib
+
 ### minihttp源码地址
 [minihttp](https://github.com/chertov/hi_minihttp.git)
+
 ### 针对ipc场景的各个soc的sdk下载地址
 [soc-sdks](https://dl.openipc.org/SDK/)
  
