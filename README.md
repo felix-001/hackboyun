@@ -3,10 +3,10 @@
 链接：https://jasonxy.lanzous.com/b015dy82j
 密码:53r2
 ### 百度云：
-链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA 
+链接： 
 提取码：37s2 
 ### 腾讯微云
-链接：https://share.weiyun.com/5A5d1Tv
+链接：
 密码：7h47ib
 ### minihttp源码地址
 [minihttp](https://github.com/chertov/hi_minihttp.git)
@@ -151,24 +151,13 @@ vi /etc/minihttp.ini
 # 开发
 
 ## 开发环境搭建
-- 下载海思sdk：`Hi3518E V200R001C01SPC040.rar`,并解压
+- 下载交叉编译工具链`arm-openwrt-linux-gcc.tar.gz`,并安装
 ```
-unrar x Hi3518E V200R001C01SPC040.rar
-cd 01.software/board
-tar zxvf Hi3518E_SDK_V1.0.4.0.tgz
-cd Hi3518E_SDK_V1.0.4.0
-./sdk.unpack
+tar zxvf arm-openwrt-linux-gcc.tar.gz -C /opt
 ```
-- 安装交叉编译工具链
-```
-cd osdrv/opensource/toolchain/arm-hisiv300-linux
-./cross.install.v30
-```
-执行这个脚本会把工具链安装在`/opt/hisi-linux/x86-arm/arm-hisiv300-linux/`
-
 - 设置环境变量
 ```
-echo "export PATH=$PATH:/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin" >> ~/.bashrc
+echo "export PATH=$PATH:/opt/arm-openwrt-linux-gcc/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -189,6 +178,12 @@ curl http://your-pc-ip:/your-exe > your-exe
 ```
 python -m SimpleHTTPServer 
 ```
+## FTP
+摄像头开启ftp:
+```
+tcpsvd -vE 0.0.0.0 21 ftpd /your/ftp/path
+```
+用户名:`root` 密码: none
 
 ## 文档  
 - [OV9732](./doc/sensor)
