@@ -187,6 +187,26 @@ tcpsvd -vE 0.0.0.0 21 ftpd /your/ftp/path
 ```
 用户名:`root` 密码: none
 
+## 远程登录
+- 首先进入如下界面
+```
+your-camera-ip/cgi-bin/luci/;stok=d603577edf02305cce224e5c51442078/admin/system/admin
+```
+-  进行如下设置
+ - **interface**选择`LAN`
+ - 勾选`Password authentication`
+ - 勾选`Allow root logins with password`
+- 查看本机的ssh public key
+```
+cat ~/.ssh/id_rsa.pub
+```
+- 将`id_rsa.pub`的内容拷贝到`SSH-Keys`
+- 点击`Save&Apply`
+- 在pc终端执行:
+```
+ssh root@your-camera-ip
+```
+
 ## 文档  
 - [OV9732](./doc/sensor)
 - [CC2530](./doc/zigbee)
