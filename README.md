@@ -181,6 +181,7 @@ scp app root@192.168.3.52:~
 
 - 运行
 ```
+killall minihttp
 cd ~
 ./app &
 ```
