@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
-
+#include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
@@ -36,7 +36,7 @@ bool set_u8(const uint32_t offset, const uint8_t value) {
     int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
     if (mem_fd < 0) { printf("set_u8 can't open /dev/mem \n"); return false; }
     volatile char *mmap_ptr = mmap(
-            offset,                // Any adddress in our space will do
+            (void *)offset,                // Any adddress in our space will do
             1,                     // Map length
             PROT_WRITE,            // Enable reading & writting to mapped memory
             MAP_SHARED,            // Shared with other processes
@@ -58,7 +58,7 @@ bool get_u8(const uint32_t offset, uint8_t *value) {
     int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
     if (mem_fd < 0) { printf("get_u8 can't open /dev/mem \n"); return false; }
     volatile char *mmap_ptr = mmap(
-            offset,                // Any adddress in our space will do
+            (void *)offset,                // Any adddress in our space will do
             1,                     // Map length
             PROT_READ,             // Enable reading & writting to mapped memory
             MAP_SHARED,            // Shared with other processes
@@ -80,7 +80,7 @@ bool set_u32(const uint32_t offset, const uint32_t value) {
     int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
     if (mem_fd < 0) { printf("set_u32 can't open /dev/mem \n"); return false; }
     volatile char *mmap_ptr = mmap(
-            offset,              // Any adddress in our space will do
+            (void *)offset,              // Any adddress in our space will do
             4,                   // Map length
             PROT_WRITE,          // Enable reading & writting to mapped memory
             MAP_SHARED,          // Shared with other processes
@@ -106,7 +106,7 @@ bool get_u32(const uint32_t offset, uint32_t *value) {
     int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
     if (mem_fd < 0) { printf("get_u32 can't open /dev/mem \n"); return false; }
     volatile char *mmap_ptr = mmap(
-            offset,                // Any adddress in our space will do
+            (void *)offset,                // Any adddress in our space will do
             4,                     // Map length
             PROT_READ,             // Enable reading & writting to mapped memory
             MAP_SHARED,            // Shared with other processes
@@ -149,7 +149,7 @@ bool set_pin_dir(struct Pin *pin, const enum PIN_DIRECTION direction) {
     const uint32_t gpio_port_addr = GPIO[pin->port];
     const uint32_t gpio_dir_addr = gpio_port_addr  + GPIO_DIR;
     enum PIN_DIRECTION gpio_port_direction;
-    if(!get_u8(gpio_dir_addr, &gpio_port_direction)) return false;
+    if(!get_u8(gpio_dir_addr, (uint8_t *)&gpio_port_direction)) return false;
     switch (direction) {
         case OUTPUT: { gpio_port_direction = set_bit(gpio_port_direction, pin->pin, true); break; } // set pin bit to 1 for output
         case INPUT: { gpio_port_direction = set_bit(gpio_port_direction, pin->pin, false); break; } // set pin bit to 0 for output
@@ -217,7 +217,7 @@ bool set_pin_linux(const uint8_t pin_number, const bool bit) {
 // 0x0200 = 1000000000
 // 0x03FC = 1111111100
 
-const static struct Pin hi3518EV200_pins[] = {
+static struct Pin hi3518EV200_pins[] = {
     { .gpio = true, .port = 0, .pin = 6, .muxctl = 0x008, .e = 0b0, .desc = "muxctrl_reg02=008 000: GPIO0_6, 001: FLASH_TRIG, 010: SFC_EMMC_BOOT_MODE, 011: SPI1_CSN1, 100: VI_VS_BT1120"},
     { .gpio = true,  .port = 0, .pin = 5, .muxctl = 0x004, .e = 0b1, .desc = "muxctrl_reg01=004 0: SENSOR_RSTN, 1: GPIO0_5"},
     { .gpio = true,  .port = 0, .pin = 7, .muxctl = 0x00C, .e = 0b0, .desc = "muxctrl_reg03=00C 000: GPIO0_7, 001: SHUTTER_TRIG, 010: SFC_DEVICE_MODE, 100: VI_HS_BT1120"},

@@ -22,13 +22,13 @@
 
 #include "config/sensor_config.h"
 #include "sensor.h"
-#include "rtsp_server.h"
+#include "rtspservice.h"
 #include "hierrors.h"
 #include "config/app_config.h"
 #include "ringfifo.h"
 
 struct SDKState state;
-int keepRunning = 1;
+extern int keepRunning;
 
 HI_S32 HI_MPI_SYS_GetChipId(HI_U32 *pu32ChipId);
 
@@ -46,8 +46,9 @@ HI_VOID* Test_ISP_Run(HI_VOID *param)
 
 HI_S32 VENC_SaveH264(int chn_index, VENC_STREAM_S *pstStream) 
 {
+    HisiPutH264DataToBuffer(pstStream);
 //    saveStream(pstStream);
-    push_h264(pstStream);
+//    push_h264(pstStream);
     return HI_SUCCESS;
 }
 

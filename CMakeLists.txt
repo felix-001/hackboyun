@@ -21,11 +21,13 @@ add_definitions(-Dhi3518ev200 -DHI_ACODEC_TYPE_INNER)
 add_definitions(-DSENSOR_TYPE=OMNIVISION_OV9732_DC_720P_30FPS)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp DIR_SRCS)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/ DIR_SRCS)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/config DIR_SRCS)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src/rtsp DIR_SRCS)
 add_executable(${APPNAME} ${DIR_SRCS})
 set (HISI_SENSOR_LIBS 
     isp _hiae _hiawb _hiaf _hidefog
