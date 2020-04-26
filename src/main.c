@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         dbg("Can't load app config './minihttp.ini'\n");
         return EXIT_FAILURE;
     }
-    ringmalloc(1920*1080);
+    ringmalloc(1920*720);
     RtspServer_init();
     if(start_sdk(&state) == EXIT_FAILURE) {
         dbg("start sdk error\n");
