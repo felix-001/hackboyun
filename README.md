@@ -211,6 +211,19 @@ ssh root@your-camera-ip
 scp your-file root@your-camera-ip:~/
 ```
 
+## 运行
+- 拷贝`app`到摄像头
+```
+scp app root@your-camera-ip:~
+```
+
+- 运行
+```
+killall minihttp
+cd ~
+./app &
+```
+
 ## 文档  
 - [OV9732](./doc/sensor)
 - [CC2530](./doc/zigbee)
