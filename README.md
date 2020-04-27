@@ -137,7 +137,7 @@ wifi
 - 通过rtsp的方式
   - 电脑或手机安装vlc
   - 启动vlc，选择open network...
-  - 输入如下地址：`rtsp://your-camera-ip:554/test.h264`
+  - 输入如下地址：`rtsp://your-camera-ip:554/test.264`
 - 通过mp4的方式  
 浏览器访问`http://your-camera-ip:8080/video.mp4`
 - 配置文件设置  
