@@ -123,6 +123,7 @@ Windows | [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 vi /etc/config/wireless
 ```
 将`OpenWrt`和`1234567890`替换成自己的
+- 【option hwmode '11g'】改为【option hwmode '11ng'】，实测速度由400KB升至3M左右
 - 联网
 ```
 wifi
