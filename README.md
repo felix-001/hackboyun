@@ -239,3 +239,5 @@ pwm相关操作: `scripts/pwm.sh`
 ## CC2530刷固件
 - https://github.com/wavesoft/CCLib
 
+# about author
+treeswayinwind@gmail.com
