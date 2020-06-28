@@ -1,3 +1,42 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [相关资源](#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90)
+    - [蓝奏云](#%E8%93%9D%E5%A5%8F%E4%BA%91)
+    - [百度云：](#%E7%99%BE%E5%BA%A6%E4%BA%91)
+    - [腾讯微云](#%E8%85%BE%E8%AE%AF%E5%BE%AE%E4%BA%91)
+    - [minihttp源码地址](#minihttp%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9D%80)
+    - [针对ipc场景的各个soc的sdk下载地址](#%E9%92%88%E5%AF%B9ipc%E5%9C%BA%E6%99%AF%E7%9A%84%E5%90%84%E4%B8%AAsoc%E7%9A%84sdk%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80)
+- [硬件](#%E7%A1%AC%E4%BB%B6)
+  - [chips](#chips)
+  - [pins](#pins)
+  - [UART接口定义](#uart%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89)
+- [软件](#%E8%BD%AF%E4%BB%B6)
+  - [PC串口工具](#pc%E4%B8%B2%E5%8F%A3%E5%B7%A5%E5%85%B7)
+  - [串口设置](#%E4%B8%B2%E5%8F%A3%E8%AE%BE%E7%BD%AE)
+  - [刷固件](#%E5%88%B7%E5%9B%BA%E4%BB%B6)
+    - [uboot被破坏的解决办法](#uboot%E8%A2%AB%E7%A0%B4%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95)
+  - [配网](#%E9%85%8D%E7%BD%91)
+  - [访问openwrt页面](#%E8%AE%BF%E9%97%AEopenwrt%E9%A1%B5%E9%9D%A2)
+  - [查看摄像头实时流](#%E6%9F%A5%E7%9C%8B%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E6%B5%81)
+- [开发](#%E5%BC%80%E5%8F%91)
+  - [开发环境搭建](#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
+  - [编译](#%E7%BC%96%E8%AF%91)
+  - [FTP](#ftp)
+  - [远程登录](#%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95)
+  - [运行](#%E8%BF%90%E8%A1%8C)
+  - [文档](#%E6%96%87%E6%A1%A3)
+  - [控制灯](#%E6%8E%A7%E5%88%B6%E7%81%AF)
+  - [ADC](#adc)
+  - [GPIO](#gpio)
+  - [PWM](#pwm)
+  - [WATCHDOG](#watchdog)
+  - [CC2530刷固件](#cc2530%E5%88%B7%E5%9B%BA%E4%BB%B6)
+- [about author](#about-author)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 相关资源
 ### 蓝奏云
 链接：https://jasonxy.lanzous.com/b015dy82j
