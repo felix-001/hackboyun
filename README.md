@@ -42,10 +42,10 @@
 链接：https://jasonxy.lanzous.com/b015dy82j
 密码:53r2
 ### 百度云：
-链接：https://pan.baidu.com/s/1MHCT43-UjTineSUwziBUIA
+链接：
 提取码：37s2 
 ### 腾讯微云
-链接：https://share.weiyun.com/5A5d1Tv
+链接：
 密码：7h47ib
 
 ### minihttp源码地址
@@ -279,4 +279,5 @@ pwm相关操作: `scripts/pwm.sh`
 - https://github.com/wavesoft/CCLib
 
 # about author
-treeswayinwind@gmail.com
+- treeswayinwind@gmail.com
+- 企鹅: 279191230
